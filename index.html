@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hub de Conhecimento | Curadoria Pessoal</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --bg: #f1f5f9;
+      --card: #ffffff;
+      --text: #1e293b;
+      --text-light: #64748b;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); }
+
+    header { 
+      background: white; 
+      padding: 3rem 6%; 
+      text-align: center; 
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    header h1 { font-family: 'Montserrat'; font-size: 2rem; color: var(--primary); }
+    header p { color: var(--text-light); margin-top: 0.5rem; }
+
+    .container { max-width: 1200px; margin: 2rem auto; padding: 0 6%; }
+
+    /* Grid de Blocos Temáticos */
+    .temas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    .bloco-tema {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bloco-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 2px solid var(--bg);
+    }
+
+    .bloco-header h2 { font-family: 'Montserrat'; font-size: 1.2rem; }
+
+    /* Lista de Cursos */
+    .curso-item {
+      margin-bottom: 1.2rem;
+      padding: 1rem;
+      border-radius: 8px;
+      background: #f8fafc;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .curso-item:hover {
+      border-color: var(--primary);
+      background: white;
+    }
+
+    .curso-item h4 { font-size: 0.95rem; margin-bottom: 4px; color: var(--primary); }
+    .curso-item p { font-size: 0.85rem; color: var(--text-light); margin-bottom: 10px; }
+
+    .btn-redirecionar {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: opacity 0.2s;
+    }
+
+    .btn-redirecionar:hover { opacity: 0.9; }
+
+    .footer-nota {
+      text-align: center;
+      padding: 3rem;
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    @media (max-width: 600px) {
+      .temas-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Meus Estudos & Referências</h1>
+  <p>Portal de redirecionamento para plataformas de ensino oficiais</p>
+</header>
+
+<div class="container">
+  <div class="temas-grid" id="mainGrid"></div>
+</div>
+
+<footer class="footer-nota">
+  <p>Nota: Este site é uma curadoria pessoal. Todos os links apontam para domínios externos como ENAP, SENAR, EMBRAPA, etc.</p>
+</footer>
+
+<script>
+  // Organização dos cursos originais por categorias lógicas
+  const blocosCursos = [
+    {
+      titulo: "Tecnologia & Inovação",
+      icone: "cpu",
+      cursos: [
+        { t: "Novas Tecnologias para a Transformação Digital", d: "ENAP - IoT e Blockchain.", l: "https://www.escolavirtual.gov.br/curso/367" },
+        { t: "Inovações em Tecnologia Educacional", d: "ENAP - Desenvolvimento de capacitação.", l: "https://www.escolavirtual.gov.br/curso/511" },
+        { t: "Introdução à Inteligência Artificial na Saúde", d: "AVASUS - AM aplicado ao diagnóstico.", l: "https://avasus.ufrn.br/local/avasplugin/cursos/curso.php?id=812" },
+        { t: "Inovação empreendedora", d: "ORANGO - Ferramentas para criar o futuro.", l: "https://orango.senac.br/inicio/cursos/inovacao-empreendedora-ferramentas-para-criar-o-futuro/" }
+      ]
+    },
+    {
+      titulo: "Meio Ambiente & Clima",
+      icone: "leaf",
+      cursos: [
+        { t: "Curso da ONU sobre Mudança Climática", d: "ONU - Ciência e governança.", l: "https://unccelearn.org/course/view.php?id=24&page=overview&lang=pt" },
+        { t: "Sustentabilidade Ambiental na Escola", d: "Eskada - Práticas sustentáveis escolares.", l: "https://eskadauema.com/course/view.php?id=83" },
+        { t: "Recursos Hídricos", d: "ENAP / ANA - Desenvolvimento socioambiental.", l: "https://www.escolavirtual.gov.br/curso/1355/" },
+        { t: "Coleta e Produção de Sementes Nativas", d: "SFB - Restauração de ecossistemas.", l: "https://saberes.florestal.gov.br/enrol/index.php?id=545" }
+      ]
+    },
+    {
+      titulo: "Gestão Pública & Governança",
+      icone: "landmark",
+      cursos: [
+        { t: "Novo marco regulatório do saneamento básico", d: "ENAP / ANA - Serviços e gestão.", l: "https://www.escolavirtual.gov.br/curso/492" },
+        { t: "Contratações públicas sustentáveis", d: "ENAP - Logística sustentável.", l: "https://www.escolavirtual.gov.br/curso/1334" },
+        { t: "Gestão da Inovação no Setor Público", d: "ENAP - Serviços mais efetivos.", l: "https://www.escolavirtual.gov.br/curso/416" },
+        { t: "MROSC: Planejamento e Transparência", d: "ENAP - Lei 13.019/2014.", l: "https://www.escolavirtual.gov.br/curso/122" }
+      ]
+    },
+    {
+      titulo: "Direitos, Ética e Inclusão",
+      icone: "users",
+      cursos: [
+        { t: "Marcos Legais Antirracistas", d: "ENAP - Combate ao racismo.", l: "https://www.escolavirtual.gov.br/curso/1054" },
+        { t: "Diversidade e inclusão no trabalho", d: "ENAP - Base teórica sobre DEI.", l: "https://www.escolavirtual.gov.br/curso/1336" },
+        { t: "Violência de gênero: prevenção", d: "ENAP - Proteção contra mulheres.", l: "https://www.escolavirtual.gov.br/curso/1204" },
+        { t: "Vivenciando a Ética Profissional", d: "IFMG - Integridade profissional.", l: "https://mais.ifmg.edu.br/maisifmg/enrol/index.php?id=13" }
+      ]
+    }
+  ];
+
+  function renderizar() {
+    const grid = document.getElementById('mainGrid');
+    
+    grid.innerHTML = blocosCursos.map(bloco => `
+      <div class="bloco-tema">
+        <div class="bloco-header">
+          <i data-lucide="${bloco.icone}" color="#2563eb"></i>
+          <h2>${bloco.titulo}</h2>
+        </div>
+        <div class="lista-cursos">
+          ${bloco.cursos.map(c => `
+            <div class="curso-item">
+              <h4>${c.t}</h4>
+              <p>${c.d}</p>
+              <a href="${c.l}" target="_blank" class="btn-redirecionar" onclick="return alertarSaida('${c.t}')">
+                Acessar Plataforma <i data-lucide="external-link" size="14"></i>
+              </a>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `).join('');
+
+    lucide.createIcons();
+  }
+
+  function alertarSaida(nome) {
+    // Um simples aviso visual que moderniza a experiência
+    console.log("Redirecionando para: " + nome);
+    return true; // Permite o clique
+  }
+
+  renderizar();
+</script>
+
+</body>
+</html>
