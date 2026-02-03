@@ -22,7 +22,7 @@ O projeto está em fase inicial e pretendo implementar:
 - [ ] **Modernização UI/UX**: Uso de bibliotecas modernas para uma experiência de usuário mais fluida.
 
 ## ✍️ Autoria
-Este projeto é mantido por **Adrielly Kerolyn**, criadora da interface original da Universidade Corporativa de Cachoeiras de Macacu. Esta versão representa meu amadurecimento como desenvolvedora e meu desejo de democratizar o acesso ao conhecimento técnico.
+Este projeto é mantido por **Adrielly Souza**, colaboradora da interface original da Universidade Corporativa de Cachoeiras de Macacu. Esta versão representa meu amadurecimento como desenvolvedora e meu desejo de democratizar o acesso ao conhecimento técnico.
 
 ---
 *Nota: Este é um projeto de curadoria independente. Os links redirecionam para as plataformas oficiais de cada curso (ENAP, SENAR, etc).*
